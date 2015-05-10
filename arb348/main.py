@@ -9,7 +9,7 @@ import sys
 from UserInput.DataClass311 import Main311Class
 from Plotting.CreatePlots import CreatePlots
 
-if __name__  =='__main__':h
+if __name__  =='__main__':
     
     try:
         
