@@ -38,8 +38,8 @@ class Main311Class(object):
         # Create a substring that's just the date portion of the datetime variable. 
         self.RawDF['Date'] = self.RawDF['Created Date'].str[0:10]      
         
-        # Replace the 'Complaint Type' observatin substring of '/' with '_', so we 
-        # don't have errors when we try to name the files usning the complaint type name. 
+        # Replace the 'Complaint Type' observation substring of '/' with '_', so we 
+        # don't have errors when we try to name the files using the complaint type name. 
         
         self.RawDF['Complaint Type']  = self.RawDF['Complaint Type'].str.replace('/', '_')
                 
