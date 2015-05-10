@@ -6,7 +6,7 @@ Created on May 1, 2015
 '''
 
 import pandas as pd
-import sys 
+import Exceptions
 
 class Main311Class(object):
     '''A class to pull together the restaurant data with a number of helpful methods.'''
@@ -20,17 +20,10 @@ class Main311Class(object):
             user to choose from. '''
         try:
             self.RawDF = pd.read_csv('Data/311_Service_Requests.csv', header=0, usecols=["Created Date", "Complaint Type", "Agency", "Agency Name", "Borough", "Longitude", "Latitude", "Incident Zip"], error_bad_lines=False,  index_col=False, dtype='unicode')    
-        except IOError:       
-            print "\n"
-            print "Sorry, there was a problem reading in the 311 data. Please check to ensure that"
-            print "the file is called '311_Service_Requests.csv' and that it is in the directory at /arb348/Data."   
-            sys.exit(0)
+        except IOError: 
+            raise Exceptions.MissingFile()
         except ValueError:
-            print "\n"
-            print "Sorry, there was a problem reading in the 311 data. A ValueError was thrown."
-            print "the file is called '311_Service_Requests.csv' and that it is in the directory at /arb348/Data,"
-            print "and make sure that it has all the columns listed in the red_csv statement."   
-            sys.exit(0)
+            raise Exceptions.Missing311Data()
             
         # Drop rows that have a missing values.
         self.RawDF = self.RawDF[pd.notnull(self.RawDF['Created Date'])]

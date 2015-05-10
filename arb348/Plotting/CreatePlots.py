@@ -37,7 +37,7 @@ def CreatePlots(RawDF):
         # If the don't want to break out of the loop, we create the charts for this subset of data, and then prompt them again. 
         else:
             print '\n'
-            print 'Creating heatmap and scatter plots for complaint type: ' + str(ComplaintChoice) + ', and the date range: ' + str(pd.to_datetime(FirstDate).date()) + " through " + str(pd.to_datetime(LastDate).date())
+            print 'Creating heatmap, scatter plot and pie plot for complaint type: ' + str(ComplaintChoice) + ', and the date range: ' + str(pd.to_datetime(FirstDate).date()) + " through " + str(pd.to_datetime(LastDate).date())
        
             CreateIndividualCharts(ComplaintChoice, ComplaintData, FirstDate, LastDate)
         

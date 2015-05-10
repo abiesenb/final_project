@@ -9,6 +9,8 @@ Created on May 5, 2015
 import sys
 
 def ValidateAddChartChoice():
+    '''Get the user's choice for additional input, and make sure the answer they
+    give is either yes, no or finish. If not, prompt again.'''
     
     while True:
         try:        

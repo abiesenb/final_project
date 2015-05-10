@@ -7,6 +7,7 @@ Created on May 2, 2015
 
 import matplotlib.pyplot as plt
 import pandas as pd
+import Exceptions
 
 def CreateAgencyBarPlots(RawDF, FirstDate, LastDate):
     '''Generates a bar plot by complaint type.'''
@@ -20,13 +21,10 @@ def CreateAgencyBarPlots(RawDF, FirstDate, LastDate):
         plt.title("311 Calls by Agency (Top 10) \n Date Range: {0} to {1}".format(FirstDate, LastDate))
         title = "Output/AgencyBarplot_" + str(pd.to_datetime(FirstDate).date()) + "_" + str(pd.to_datetime(LastDate).date()) + ".pdf"
         plt.savefig(title) 
-        plt.close()
-        
+        plt.close()      
     except IOError:
-        print "\n whoops...I/O error in creating the bar chart... check to make sure that the file and directory exist for the image files being created."
-    except TypeError: 
-        print "\n whoops...TypeError in creating the pie chart..."
-            
+        raise Exceptions.AgencyBarIO()
+       
 def CreateBoroughBarPlots(RawDF, FirstDate, LastDate):
     '''Generates a bar plot by complaint type.'''
     try:     
@@ -42,10 +40,8 @@ def CreateBoroughBarPlots(RawDF, FirstDate, LastDate):
         plt.close()
         
     except IOError:
-        print "\n whoops...I/O error in creating the Borough bar chart... check to make sure that the file and directory exist for the image files being created."
-    except TypeError: 
-        print "\n whoops...TypeError in creating the pie chart..."
-          
+        raise Exceptions.BoroughBarIO()
+
 def CreateZIPBarPlots(RawDF, FirstDate, LastDate):
     '''Generates a bar plots of complaints by ZIP code.'''
     try:     
@@ -61,6 +57,4 @@ def CreateZIPBarPlots(RawDF, FirstDate, LastDate):
         plt.close()
         
     except IOError:
-        print "\n whoops...I/O error in creating the ZIP code bar chart... check to make sure that the file and directory exist for the image files being created."
-    except TypeError: 
-        print "\n whoops...TypeError in creating the pie chart..."              
+        raise Exceptions.ZIPBarIO()   

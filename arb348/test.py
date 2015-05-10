@@ -14,7 +14,7 @@ class Test(unittest.TestCase):
     def test311(self):
         '''Tests if the 311 data file exits in the Data directory.'''
 
-        self.assertTrue(os.path.exists("./Data/311_Service_Requests.csv"), "The 311 data set needs to be in the /Data directory and that it's called 311_Service_Requests.csv.")
+        self.assertTrue(os.path.exists("./Data/311_Service_Requests.csv"), "The 311 data set needs to be in the /Data directory and must be called 311_Service_Requests.csv.")
         self.assertTrue(os.path.exists("./Data/nycd_corrected.dbf"), "The shapefile nycd_corrected.dbf isn't in the data directory.")
         self.assertTrue(os.path.exists("./Data/nycd_corrected.prj"), "The shapefile nycd_corrected.dbf isn't in the data directory.")
         self.assertTrue(os.path.exists("./Data/nycd_corrected.qpj"), "The shapefile nycd_corrected.dbf isn't in the data directory.")

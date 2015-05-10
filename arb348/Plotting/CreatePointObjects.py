@@ -15,10 +15,9 @@ def CreatePointObjects(BasemapTemplate, MapData, ComplaintData):
     community_poygons. The results is a pandas series returning NYCPoints, which we'll use to make out maps. 
     '''
     
-    
     # Create Point objects (in a pandas Series) in map coordinates from our DataFrame longitude and latitude values.
     # Note that the zip function here aggregates the long/lat data for each observation in our compliant data. 
-    # The Point constructor here takes positional coordinate values. 
+    # The purpose of this code is to convert our latitude and longitude into Basemap cartesian map coordinates 
     
     MapPoints = pd.Series([Point(BasemapTemplate(MapX, MapY)) for MapX, MapY in zip(ComplaintData['Longitude'], ComplaintData['Latitude'])])
         
@@ -31,7 +30,7 @@ def CreatePointObjects(BasemapTemplate, MapData, ComplaintData):
     
     CommunityPolygon = prep(MultiPolygon(list(MapData['poly'].values)))
     
-    # calculate points that fall within the community boundaires. Here ncy_points 
+    # calculate points that fall within the community boundaries. Here NYCPoints 
     # is a list containing Point objects of all the complaint points contained in 
     # the community polygons.
     

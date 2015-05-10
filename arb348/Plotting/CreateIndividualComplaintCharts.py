@@ -13,6 +13,7 @@ from Plotting.SummarizeByCommunity import SummarizeByCommunity
 from Plotting.CreatePointObjects import CreatePointObjects
 from Plotting.CreateScatterPlot import CreateScatterPlot
 from Plotting.CreatePiePlots import CreateBoroughPiePlot
+import Exceptions
 
 def CreateIndividualCharts(ComplaintChoice, ComplaintData, FirstDate, LastDate):
 
@@ -44,14 +45,13 @@ def CreateIndividualCharts(ComplaintChoice, ComplaintData, FirstDate, LastDate):
     try:
         Createheatmap(BasemapTemplate, Breaks, MapData, JenksLabels, Coordinates, ComplaintChoice, FirstDate, LastDate)      
     except IOError:
-        print "\n whoops...I/O error in creating the heatmap chart... check to make sure that the file and directory exist for the image files being created."
+        raise Exceptions.HeatMapIO()
         
     ''' Create the scatter charts. This module saves the chart as a png file. '''
     
     try:
         CreateScatterPlot(MapData, NYCPoints, BasemapTemplate, Coordinates, ComplaintChoice, FirstDate, LastDate)     
     except IOError:
-        print "\n whoops...I/O error in creating the scatter chart... check to make sure that the file and directory exist for the image files being created."
- 
+        raise Exceptions.ScatterPlotIO() 
 
     CreateBoroughPiePlot(ComplaintData, FirstDate, LastDate, ComplaintChoice)
