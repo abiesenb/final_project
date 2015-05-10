@@ -10,10 +10,16 @@ import pandas as pd
 
 def ValidateComplaintChoice(RawDF):
     ''' Validate the complaint choice the user makes. Returns the reduced data containing only those complaints.'''
-  
+    
+    # Make a dict of unique complaints.
     Complaints = GetComplaintDict(RawDF)    
     while True:
+        # Get users complaint choice
         choice = GetComplaintChoice(RawDF)        
+        # Make sure they entered something. If not, prompt again. If they did,
+        # validate their choice. If it's invalid, prompt again. Otherwise, 
+        # return the truncated data. 
+        
         if choice !="":
             if choice=='finish' or choice == 'back':
                 break

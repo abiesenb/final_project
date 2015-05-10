@@ -33,13 +33,25 @@ def ValidateDateChoice(RawDF, Complaint):
             print (60 * '-')   
             print "\n"
             
+            # Get their first date entry.
             FirstDate = raw_input('Start date (yyyy-mm-dd format please)? ' )
+            
+            # Check to make sure the date is in the range provided for that 
+            # complaint choice. If 'wrong', prompt again. If 'right', move on to
+            # the end date choice and perform the analogous analysis. If they enter
+            # 'back', break the loop so we can return to the previous menu. If 
+            # they enter 'max' at either prompt, use the maximum date range available.
+            # If they enter valid input at both prompts, return the truncated 
+            # data.
+            
             FirstChecker = CheckDate(RawDF, FirstDate)
             if FirstChecker == 'right':
                 print "\n"
                 LastDate = raw_input('Ending date (yyyy-mm-dd  format please)? ' )
                 SecondChecker = CheckDate(RawDF, LastDate)
                 if SecondChecker == 'right':
+                    
+                    # Ending date must not precede beginning date. 
                     if pd.to_datetime(FirstDate)<=pd.to_datetime(LastDate): 
                         break
                     else:

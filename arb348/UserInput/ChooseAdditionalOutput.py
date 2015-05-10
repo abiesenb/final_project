@@ -16,7 +16,7 @@ def ValidateAddChartChoice():
         try:        
             print '\n'
             print (60 * '-')
-            choice = raw_input("Would you like additional analysis for this date range (yes/no)? Exit by typing 'finish'.")
+            choice = raw_input("Would you like additional analysis for this date range (yes/no)? Exit by typing 'finish.'  ")
             print '\n'
             print (60 * '-')
 

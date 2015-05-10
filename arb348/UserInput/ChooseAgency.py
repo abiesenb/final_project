@@ -10,11 +10,16 @@ import pandas as pd
 
 def ValidateAgencyChoice(RawDF):
     ''' Validate the complaint choice the user makes. Returns the reduced data containing only those complaints.'''
-
+    
+    # Make a dict of Agencies to loop over.  
     Agencies = GetAgencyDict(RawDF)
     while True:
-        choice = GetAgencyChoice(RawDF)        
+        # Get the user's agency choice.
+        choice = GetAgencyChoice(RawDF)   
+        # Make sure they enter something. If not, prompt again.     
         if choice !="":
+            # If they want to exit, break the loop. Otherwise, see if the choice 
+            # is valid. If so, return the truncated data.
             if choice=='finish':
                 break
             else:

@@ -30,14 +30,15 @@ def CreatePlots(RawDF):
         if Agency =='finish':
             break
         
-        # If the user type 'back', then they wanted to return to the Agency compaint menu.
+        # If the user type 'back', then they wanted to return to the Agency complaint menu.
         elif Agency =='back':
             continue
             
         # If the don't want to break out of the loop, we create the charts for this subset of data, and then prompt them again. 
         else:
             print '\n'
-            print 'Creating heatmap, scatter plot and pie plot for complaint type: ' + str(ComplaintChoice) + ', and the date range: ' + str(pd.to_datetime(FirstDate).date()) + " through " + str(pd.to_datetime(LastDate).date())
+            print 'Creating heatmap, scatter plot and pie plot for complaint type: ' + str(ComplaintChoice)+','
+            print 'and the date range: ' + str(pd.to_datetime(FirstDate).date()) + " through " + str(pd.to_datetime(LastDate).date())
        
             CreateIndividualCharts(ComplaintChoice, ComplaintData, FirstDate, LastDate)
         
