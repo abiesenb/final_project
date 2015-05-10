@@ -9,6 +9,7 @@ from Plotting.CreatePiePlots import CreateAllComplaintPiePlot
 from Plotting.CreateBarCharts import CreateAgencyBarPlots, CreateBoroughBarPlots, CreateZIPBarPlots
 from CreateIndividualComplaintCharts import CreateIndividualCharts
 import pandas as pd
+import sys 
 
 def CreatePlots(RawDF):
     ''' This function takes the input for the agency/complaint type/date range 
@@ -20,7 +21,7 @@ def CreatePlots(RawDF):
                 
         (FirstDate, LastDate, ComplaintData, ComplaintChoice, Agency) = Return311Choice(RawDF)
                 
-        ''' Once the choropleths are created, the user is prompted again for another choice. 
+        ''' Once the heatmaps are created, the user is prompted again for another choice. 
             If they want to break out the while loop and exit the program, they can do this at any time 
             by typing 'finish' at any of the prompts. '''
         
@@ -36,7 +37,7 @@ def CreatePlots(RawDF):
         # If the don't want to break out of the loop, we create the charts for this subset of data, and then prompt them again. 
         else:
             print '\n'
-            print 'Creating choropleth and scatter plots for complaint type: ' + str(ComplaintChoice) + ', and the date range: ' + str(pd.to_datetime(FirstDate).date()) + " through " + str(pd.to_datetime(LastDate).date())
+            print 'Creating heatmap and scatter plots for complaint type: ' + str(ComplaintChoice) + ', and the date range: ' + str(pd.to_datetime(FirstDate).date()) + " through " + str(pd.to_datetime(LastDate).date())
        
             CreateIndividualCharts(ComplaintChoice, ComplaintData, FirstDate, LastDate)
         
@@ -57,7 +58,14 @@ def CreatePlots(RawDF):
             CreateAgencyBarPlots(RawDFDateReduced, FirstDate, LastDate)    
             CreateBoroughBarPlots(RawDFDateReduced, FirstDate, LastDate)     
             CreateZIPBarPlots(RawDFDateReduced, FirstDate, LastDate)
-
+        
+        elif Choice == 'finish':
+            
+            print "exiting program."
+            print '\n'
+            
+            sys.exit(0)
+            
         # This continue statement will allow us to prompt the user again for another 
         # choice of agency/complaint type/ date range. 
         

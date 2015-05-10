@@ -11,31 +11,49 @@ import numpy as np
 import matplotlib.cm as cm
 
 
-# Convenience functions for working with color ramps and bars
+# Convenience functions for working with color ramps and bars. Note that the 
+# inclusion of **kwargs allows us to pass an arbitrary number of keyword 
+# arguments to the function. 
 
-def colorbar_index(ncolors, cmap, labels=None, **kwargs):
-    '''This is a convenience function to stop you making off-by-one errors takes a standard color ramp, 
-    and discretizes it, then draws a color bar with correctly aligned labels'''
+def ColorBarIndex(ncolors, cmap, labels=None, **kwargs):
+    '''This is a convenience function that draws a color bar with correctly aligned labels'''
   
-    cmap = cmap_discretize(cmap, ncolors)
-    mappable = cm.ScalarMappable(cmap=cmap)
-    mappable.set_array([])
-    mappable.set_clim(-0.5, ncolors+0.5)
-    colorbar = plt.colorbar(mappable, **kwargs)
+    # Get the colormap from the function below.
+    cmap = ColorMap(cmap, ncolors)
+    
+    # class to support scalar data to RGBA mapping. 
+    # The ScalarMappable makes use of data normalization before returning
+    # RGBA colors from the given colormap.
+    Mapping = cm.ScalarMappable(cmap=cmap)
+    
+    # Set the image array. 
+    Mapping.set_array([])
+    
+    # set the norm limits for image scaling.
+    Mapping.set_clim(-0.5, ncolors+0.5)
+    
+    # The derived class from the colorbar base class, 
+    # for use with images or contour plots.
+    colorbar = plt.colorbar(Mapping, **kwargs)
     colorbar.set_ticks(np.linspace(0, ncolors, ncolors))
     colorbar.set_ticklabels(range(ncolors))
     if labels:
         colorbar.set_ticklabels(labels)
     return colorbar
 
-def cmap_discretize(cmap, N):
-    '''Return a discrete colormap from the continuous colormap cmap.'''
-    if type(cmap) == str:
-        cmap = plt.get_cmap(cmap)
-    colors_i = np.concatenate((np.linspace(0, 1., N), (0., 0., 0., 0.)))
-    colors_rgba = cmap(colors_i)
-    indices = np.linspace(0, 1., N + 1)
-    cdict = {}
-    for ki, key in enumerate(('red', 'green', 'blue')):
-        cdict[key] = [(indices[i], colors_rgba[i - 1, ki], colors_rgba[i, ki]) for i in xrange(N + 1)]
-    return matplotlib.colors.LinearSegmentedColormap(cmap.name + "_%d" % N, cdict, 1024)
+def ColorMap(cmap, NumberOfColors):
+    '''Return a discrete colormap from the continuous colormap cmap. The
+    cmap argument is the colormap, while the N argument is the number 
+    of color we need (in this case, equal to the number of jenks breaks that 
+    the program determines. '''
+    
+    ColorIndex = np.concatenate((np.linspace(0, 1, NumberOfColors), (0., 0., 0., 0.)))
+    RGBAColorIndex = cmap(ColorIndex)
+    indices = np.linspace(0, 1, NumberOfColors + 1)
+    
+    ColorDict = {}
+    for CIndex, Color in enumerate(('red', 'green', 'blue')):
+        ColorDict[Color] = [(indices[i], RGBAColorIndex[i - 1, CIndex], RGBAColorIndex[i, CIndex]) for i in xrange(NumberOfColors + 1)]
+    
+    # Here we use the LinearSegmentedColormap class to create the new colormap object. 
+    return matplotlib.colors.LinearSegmentedColormap(cmap.name + "_%d" % NumberOfColors, ColorDict, 1024)

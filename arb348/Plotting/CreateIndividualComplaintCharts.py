@@ -1,5 +1,5 @@
 '''
-This module creates the choropleth, scatter and Borough pie plot for the selected complaint
+This module creates the heatmap, scatter and Borough pie plot for the selected complaint
 type and date range. 
 
 Created on May 5, 2015
@@ -8,7 +8,7 @@ Created on May 5, 2015
 
 from Plotting.CreateBasemapInstance import BasemapInstance
 from Plotting.ComputeJenksBreaks import ComputeJenksBreaks
-from Plotting.CreateChoropleth import CreateChoropleth
+from Plotting.CreateHeatmap import Createheatmap
 from Plotting.SummarizeByCommunity import SummarizeByCommunity
 from Plotting.CreatePointObjects import CreatePointObjects
 from Plotting.CreateScatterPlot import CreateScatterPlot
@@ -33,18 +33,18 @@ def CreateIndividualCharts(ComplaintChoice, ComplaintData, FirstDate, LastDate):
              
     MapData = SummarizeByCommunity(MapData, NYCPoints)
     
-    ''' Generate the Jenks breaks for our choropleth charts. Returns:
+    ''' Generate the Jenks breaks for our heatmap charts. Returns:
             Breaks: the Jenks natural breaks for density.
             MapData: the DataFrame containing our lat/long complaint info.
-            JenksLabels: Labels used to label the key on the final choropleth. '''
+            JenksLabels: Labels used to label the key on the final heatmap. '''
     
     (Breaks, MapData, JenksLabels) = ComputeJenksBreaks(MapData)
     
-    ''' Create the choropleth charts. This module saves the chart as a png file. '''
+    ''' Create the heatmap charts. This module saves the chart as a png file. '''
     try:
-        CreateChoropleth(BasemapTemplate, Breaks, MapData, JenksLabels, Coordinates, ComplaintChoice, FirstDate, LastDate)      
+        Createheatmap(BasemapTemplate, Breaks, MapData, JenksLabels, Coordinates, ComplaintChoice, FirstDate, LastDate)      
     except IOError:
-        print "\n whoops...I/O error in creating the choropleth chart... check to make sure that the file and directory exist for the image files being created."
+        print "\n whoops...I/O error in creating the heatmap chart... check to make sure that the file and directory exist for the image files being created."
         
     ''' Create the scatter charts. This module saves the chart as a png file. '''
     

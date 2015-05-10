@@ -20,7 +20,7 @@ def CreatePointObjects(BasemapTemplate, MapData, ComplaintData):
     # Note that the zip function here aggregates the long/lat data for each observation in our compliant data. 
     # The Point constructor here takes positional coordinate values. 
     
-    MapPoints = pd.Series([Point(BasemapTemplate(mapped_x, mapped_y)) for mapped_x, mapped_y in zip(ComplaintData['Longitude'], ComplaintData['Latitude'])])
+    MapPoints = pd.Series([Point(BasemapTemplate(MapX, MapY)) for MapX, MapY in zip(ComplaintData['Longitude'], ComplaintData['Latitude'])])
         
     # Creates a MultiPoint object from the list of lat/long values from above. 
     

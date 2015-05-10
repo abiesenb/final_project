@@ -29,12 +29,12 @@ def BasemapInstance():
     # returns elements from the first iterable until it is exhausted, then 
     # proceeds to the next iterable, until all of the iterables are exhausted. 
     
-    ll = (bds[0], bds[1])
-    ur = (bds[2], bds[3])
+    LowerLeft = (bds[0], bds[1])
+    UpperRight = (bds[2], bds[3])
      
-    Coordinates = list(chain(ll, ur))
-    extra = 0.01
-    width, height = Coordinates[2] - Coordinates[0], Coordinates[3] - Coordinates[1]
+    Coordinates = list(chain(LowerLeft, UpperRight))
+    Width  = Coordinates[2] - Coordinates[0]
+    Height = Coordinates[3] - Coordinates[1]
         
     """ At this point we're ready to create our basemap instance. This is what will be used to 
         plot our maps on. 
@@ -59,10 +59,10 @@ def BasemapInstance():
         ellps = 'WGS84',
         lon_0 = -74.,
         lat_0 = 41.,
-        llcrnrlon=Coordinates[0] - extra * width,
-        llcrnrlat=Coordinates[1] - extra + 0.01 * height,
-        urcrnrlon=Coordinates[2] + extra * width,
-        urcrnrlat=Coordinates[3] + extra + 0.01 * height,
+        llcrnrlon=Coordinates[0] - 0.01 * Width,
+        llcrnrlat=Coordinates[1] - 0.01 + 0.01 * Height,
+        urcrnrlon=Coordinates[2] + 0.01 * Width,
+        urcrnrlat=Coordinates[3] + 0.01 + 0.01 * Height,
         lat_ts=0,
         resolution='i',
         suppress_ticks=True)
@@ -77,7 +77,7 @@ def BasemapInstance():
         in our DataFrame called 'poly', which contains a Polygon object for each neighborhood
         in the shapefile. We also create two more series in this DataFrame called 'area_m' and 
         'area_km' that contain the areas in square meters and square kilometers.  We'll use these later
-        to come up with the density values for the choropleth chart.
+        to come up with the density values for the heatmap chart.
     """
     MapData = pd.DataFrame({
         'poly': [Polygon(xy) for xy in BasemapTemplate.nyc]})

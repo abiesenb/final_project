@@ -24,10 +24,10 @@ if __name__  =='__main__':
         RawDF = Main311Class().Subset311Data()
         
         '''The CreatePlots function prompts the user for input (complaint type, date range), 
-        and create the choropleth, scatter and other charts.'''
+        and create the heatmap, scatter and other charts.'''
        
         CreatePlots(RawDF)
-       
+        
         '''If the user types 'finish', exit.'''
         
         print "\n"

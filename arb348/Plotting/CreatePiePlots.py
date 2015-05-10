@@ -35,7 +35,9 @@ def CreateBoroughPiePlot(RawDF, FirstDate, LastDate, ComplaintChoice):
         title = "Output/BoroughPieplot_" + str(pd.to_datetime(FirstDate).date()) + "_" + str(pd.to_datetime(LastDate).date()) + ".pdf"
         plt.savefig(title) 
         plt.close()
+        
     except IOError:
         print "\n whoops...I/O error in creating the Borough pie chart... check to make sure that the file and directory exist for the image files being created."
     except TypeError: 
         print "\n whoops...TypeError in creating the pie chart..."
+        

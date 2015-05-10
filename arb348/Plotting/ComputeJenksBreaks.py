@@ -1,5 +1,5 @@
 '''
-Module that computes the Jenks breaks, used in the choropleth chart.
+Module that computes the Jenks breaks, used in the heatmap chart.
 
 NOTE: The code written below for Natural_Breaks class and the natural_breaks 
 function are part of the pysal.esda.mapclassify  release, and were not written 
@@ -16,7 +16,7 @@ import numpy as np
 
 def ComputeJenksBreaks(df_map):
     '''This module calculates the Jenks natural breaks for density. We'll use these in
-    creating out choropleth charts later on.'''
+    creating out heatmap charts later on.'''
 
     breaks = Natural_Breaks(df_map[df_map['density_km'].notnull()].density_km.values, k=5)
     #the notnull method lets us match indices when joining.

@@ -14,16 +14,17 @@ def ValidateAddChartChoice():
         try:        
             print '\n'
             print (60 * '-')
-            choice = raw_input("Would you like additional analysis for this date range (yes/no)? ")
+            choice = raw_input("Would you like additional analysis for this date range (yes/no)? Exit by typing 'finish'.")
             print '\n'
+            print (60 * '-')
 
         except KeyboardInterrupt:
             print "\n whoops... KeyboardInterrupt... exiting program."
             sys.exit(0)
         
-        if choice == 'yes' or choice =='no':
+        if choice == 'yes' or choice =='no' or choice == 'finish':
             return choice 
             break
         else:
-            print "sorry, response must be 'yes' or 'no'."
+            print "sorry, response must be 'yes', 'no' or 'finish'."
             continue
